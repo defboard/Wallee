@@ -1,0 +1,15 @@
+[submodule "components/Adafruit_BusIO"]
+	path = components/Adafruit_BusIO
+	url = https://github.com/adafruit/Adafruit_BusIO
+[submodule "components/RTClib"]
+	path = components/RTClib
+	url = https://github.com/defboard/RTClib
+[submodule "components/Adafruit-GFX-Library"]
+	path = components/Adafruit-GFX-Library
+	url = https://github.com/defboard/Adafruit-GFX-Library
+[submodule "components/Adafruit_ILI9341"]
+	path = components/Adafruit_ILI9341
+	url = https://github.com/defboard/Adafruit_ILI9341
+[submodule "components/XPT2046_Touchscreen"]
+	path = components/XPT2046_Touchscreen
+	url = https://github.com/defboard/XPT2046_Touchscreen
