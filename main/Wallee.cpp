@@ -1,4 +1,7 @@
 #include "Formatting.hpp"
+#include "Server.hpp"
+#include "System.hpp"
+#include "Wifi.hpp"
 #include "keypad.h"
 
 #include <Arduino.h>
@@ -123,15 +126,25 @@ void setup()
   Serial.begin(115200);
 
   // RTC
-  Wire.begin(PIN_RTC_SDA, PIN_RTC_SCL);
-  rtc.begin(&Wire);
+  bool WIRE_BEGIN = Wire.begin(PIN_RTC_SDA, PIN_RTC_SCL);
+  bool RTC_BEGIN = WIRE_BEGIN and rtc.begin(&Wire);
   rtc.disable32K();
   rtc.writeSqwPinMode(Ds3231SqwPinMode::DS3231_OFF);
-
+  eventLog << getSystemTime() << " Init Wire: " << checkSuccess(WIRE_BEGIN) << endl;
+  eventLog << getSystemTime() << " Init RTC: " << checkSuccess(RTC_BEGIN) << endl;
+  if (RTC_BEGIN) {
+    setSystemTime(rtc.now());
+  }
 
   // SD card
   bool SPI_BEGIN = SPI2.begin(PIN_SD_SCK, PIN_SD_MISO, PIN_SD_MOSI, PIN_SD_CS);
   bool SD_BEGIN = SPI_BEGIN and SD.begin(PIN_SD_CS, SPI2);
+  eventLog << getSystemTime() << " Init SPI: " << checkSuccess(SPI_BEGIN) << endl;
+  eventLog << getSystemTime() << " Init SD: " << checkSuccess(SD_BEGIN) << endl;
+
+  // Network
+  initWifi();
+  initWebServer();
 
   // Display
   pinMode(PIN_TFT_LED, OUTPUT);
@@ -184,8 +197,8 @@ void interactKeypad(int X, int Y)
 
   else if (keycode == KEY_OK) {
     File logfile = SD.open("scale.log", FILE_APPEND, true);
-    logfile << rtc.now() << " " << inputNumber << endl;
-    Serial << rtc.now() << " " << inputNumber << endl;;
+    logfile << getSystemTime() << " " << inputNumber << endl;
+    Serial << getSystemTime() << " " << inputNumber << endl;;
 
     showResultText(ILI9341_GREEN, "CODE OK", 60);
     playSoundResultOk();
