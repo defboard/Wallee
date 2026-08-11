@@ -84,3 +84,8 @@ String hex(const T& value)
   result.print(value, HEX);
   return result;
 }
+
+inline const char* checkSuccess(bool success)
+{
+  return success ? "SUCCESS!" : "FAILED!";
+}
