@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from flask import Flask, send_from_directory, request
-from datetime import datetime
+from datetime import datetime, timedelta
 from types import SimpleNamespace
 from io import StringIO
 import random
@@ -51,8 +51,9 @@ def events_log():
 
 def server_info():
     return {
-        "serverTime": format_time(datetime.now()),
-        "bootTime": format_time(state.bootTime),
+        # subtract one hour for testing correct display at client:
+        "serverTime": format_time(datetime.now() - timedelta(seconds=3600)),
+        "bootTime": format_time(state.bootTime - timedelta(seconds=3600)),
         "wifiMode": state.wifiMode,
         "wifiSsid": state.wifiSsid,
         "wifiHostname": state.wifiHostname,
