@@ -10,11 +10,10 @@ DateTime getSystemTime()
     return DateTime(unixtime);
 }
 
-DateTime getBootTime()
+TimeSpan getUptime()
 {
-    uint32_t unixtime = time(NULL);
     uint64_t uptime = esp_timer_get_time() / 1'000'000;
-    return DateTime(unixtime - uptime);
+    return TimeSpan(uptime);
 }
 
 bool setSystemTime(DateTime newTime)

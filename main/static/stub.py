@@ -53,7 +53,7 @@ def server_info():
     return {
         # subtract one hour for testing correct display at client:
         "serverTime": format_time(datetime.now() - timedelta(seconds=3600)),
-        "bootTime": format_time(state.bootTime - timedelta(seconds=3600)),
+        "uptime": int((datetime.now() - state.bootTime).total_seconds()),
         "wifiMode": state.wifiMode,
         "wifiSsid": state.wifiSsid,
         "wifiHostname": state.wifiHostname,
