@@ -222,15 +222,15 @@ const JSON_safeParse = (text) => {
 
 // Local storage
 
-const storageKey = 'PlantWaterOS';
+const storageKey = 'Wallee';
 const savedState = JSON.parse(localStorage.getItem(storageKey) || "{}");
 const initialState = {
   serverstatus: {
     serverTime: "",
     uptime: "",
     wifiMode: "STA",
-    wifiSsid: "PlantWaterNet",
-    wifiHostname: "PlantWaterOS",
+    wifiSsid: "WalleeNet",
+    wifiHostname: "Wallee",
     wifiPassword: "",
   },
   // client
@@ -582,7 +582,7 @@ app({
     const isWiFiOff = (editstatus.wifiMode ?? serverstatus.wifiMode) == "OFF";
 
     return h("div", {}, [
-      h("h1", {}, text("PlantWaterOS")),
+      h("h1", {}, text("Wallee")),
 
       h("nav", {}, [
         NavButton(state, "status", "Status"),
